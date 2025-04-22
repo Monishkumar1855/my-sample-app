@@ -28,11 +28,11 @@ jobs:
         uses: burnett01/rsync-deployments@5.2
         with:
           switches: -avz --delete
-          ssh_private_key: ${{ secrets.SERVER_SSH_KEY }}
           path: ./
           remote_path: /home/ubuntu/build/
           remote_host: ${{ secrets.SERVER_IP }}
           remote_user: ${{ secrets.SERVER_USER }}
+          remote_key: ${{ secrets.SERVER_SSH_KEY }}
       - name: Install dependencies and build app on server
         uses: appleboy/ssh-action@v1.0.0
         with:
