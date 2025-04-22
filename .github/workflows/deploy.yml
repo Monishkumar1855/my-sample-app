@@ -21,9 +21,9 @@ jobs:
             mkdir -p /home/ubuntu/app_backup_$timestamp
             rsync -avz /home/ubuntu/app/ /home/ubuntu/app_backup_$timestamp/
       - name: Sync source code to server
-        uses: actions/rsync@v2
+        uses: burnett01/rsync-deployments@5.2
         with:
-          switches: -avz --exclude=node_modules --exclude=build
+          switches: -avz --delete
           ssh_private_key: ${{ secrets.SERVER_SSH_KEY }}
           path: ./
           remote_path: /home/ubuntu/build/
