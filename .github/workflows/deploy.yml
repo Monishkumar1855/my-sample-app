@@ -18,9 +18,12 @@ jobs:
           script: |
             echo "Backing up current app"
             which rsync || sudo apt update && sudo apt install rsync -y
+            echo "Creating required directories if they don't exist"
+            mkdir -p /home/ubuntu/app
+            mkdir -p /home/ubuntu/app_backups
             timestamp=$(date +%F_%H-%M-%S)
             mkdir -p /home/ubuntu/app_backup_$timestamp
-            rsync -avz /home/ubuntu/app/ /home/ubuntu/app_backup_$timestamp/
+            rsync -avz /home/ubuntu/app/ /home/ubuntu/app_backup_$timestamp/  
       - name: Sync source code to server
         uses: burnett01/rsync-deployments@5.2
         with:
@@ -49,6 +52,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            echo "Creating app directory if missing"
+            mkdir -p /home/ubuntu/app
             echo "Deploying new build to app folder"
             rm -rf /home/ubuntu/app/*
             cp -r /home/ubuntu/build/build/* /home/ubuntu/app/
