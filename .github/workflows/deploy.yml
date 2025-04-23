@@ -42,7 +42,7 @@ jobs:
           script: |
             echo "Installing Node.js & npm"
             curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            sudo apt-get install -y nodejs
+            DEBIAN_FRONTEND=noninteractive sudo apt-get install -y nodejs
 
             echo "Installing dependencies and building app"
             cd /home/ubuntu/build
