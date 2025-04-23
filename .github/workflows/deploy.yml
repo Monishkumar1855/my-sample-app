@@ -42,7 +42,7 @@ jobs:
           script: |
             echo "Installing dependencies and building app"
             cd /home/ubuntu/build
-            cp .env_ottl .env
+            cp .env .env_ottl
             npm install
             npm run build
       - name: Deploy build to app directory
