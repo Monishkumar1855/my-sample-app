@@ -60,4 +60,4 @@ jobs:
             mkdir -p /home/ubuntu/app
             echo "Deploying new build to app folder"
             rm -rf /home/ubuntu/app/*
-            cp -r /home/ubuntu/build/build/* /home/ubuntu/
+            cp -r /home/ubuntu/build/build/* /home/ubuntu/app/
