@@ -22,7 +22,7 @@ jobs:
             mkdir -p /var/www/html/harness
             timestamp=$(date +%F_%H-%M-%S)
             mkdir -p /home/ubuntu/app_backup_$timestamp
-            rsync -avz /home/ubuntu/app/ /home/ubuntu/app_backup_$timestamp/  
+            rsync -avz /var/www/html/harness/ /home/ubuntu/app_backup_$timestamp/  
       - name: Sync source code to server
         uses: burnett01/rsync-deployments@5.2
         with:
