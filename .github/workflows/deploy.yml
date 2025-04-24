@@ -56,7 +56,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             echo "Creating app directory if missing"
-            mkdir -p /var/www/html/harness
+            sudo mkdir -p /var/www/html/harness
             echo "Deploying new build to app folder"
-            rm -rf /var/www/html/harness/*
-            cp -r /home/ubuntu/build/build/* /var/www/html/harness/
+            sudo rm -rf /var/www/html/harness/*
+            sudo cp -r /home/ubuntu/build/build/* /var/www/html/harness/
