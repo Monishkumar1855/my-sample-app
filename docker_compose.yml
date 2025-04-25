@@ -1,0 +1,12 @@
+version: '3'
+services:
+  react-app:
+    build: .
+    ports:
+      - "8080:80"
+    container_name: react_app_container
+    volumes:
+      - react_build:/usr/share/nginx/html
+
+volumes:
+  react_build:
