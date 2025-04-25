@@ -28,35 +28,18 @@ jobs:
         with:
           switches: -avz --delete
           path: ./
-          remote_path: /home/ubuntu/build/
+          remote_path: /home/ubuntu/docker-react/ 
           remote_host: ${{ secrets.SERVER_IP }}
           remote_user: ${{ secrets.SERVER_USER }}
           remote_key: ${{ secrets.SERVER_SSH_KEY }}
-      - name: Install dependencies and build app on server
+      
+      - name: Build and run Docker containers on server
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            echo "Installing Node.js & npm"
-            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            DEBIAN_FRONTEND=noninteractive sudo apt-get install -y nodejs
-
-            echo "Installing dependencies and building app"
-            cd /home/ubuntu/build
-            cp .env .env_ottl
-            npm install
-            npm run build
-      - name: Deploy build to app directory
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            echo "Creating app directory if missing"
-            sudo mkdir -p /var/www/html/harness
-            echo "Deploying new build to app folder"
-            sudo rm -rf /var/www/html/harness/*
-            sudo cp -r /home/ubuntu/build/build/* /var/www/html/harness/
+            cd /home/ubuntu/docker-react
+            docker compose down || true
+            docker compose up --build -d
